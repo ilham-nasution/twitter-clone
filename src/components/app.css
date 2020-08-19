@@ -1,0 +1,10 @@
+.center {
+  display: grid;
+  place-items: center;
+}
+
+.custom-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+}
