@@ -4,7 +4,43 @@
 }
 
 .custom-input {
-  background-color: transparent;
+  background-color: rgba(245, 245, 245, 0.055);
   border: none;
+  border-radius: 2px;
   border-bottom: 1px solid white;
+  padding: 32px 8px 0px 8px;
+  color: whitesmoke;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-bottom: 1px solid #20a1f1;
+}
+
+.label-custom:focus-within label {
+  color: #20a1f1 !important;
+}
+
+.label-custom label {
+  position: absolute;
+  padding-left: 8px;
+}
+
+.forgot-link {
+  position: absolute;
+  left: 16px;
+  bottom: -24px;
+  font-size: small;
+}
+
+.signup-modal {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.438);
 }
