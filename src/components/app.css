@@ -58,3 +58,10 @@
   background-color: #253441;
   border-radius: 25px;
 }
+
+.tweet-input {
+  background-color: transparent;
+  border: none;
+  font-size: x-large;
+  color: whitesmoke;
+}
