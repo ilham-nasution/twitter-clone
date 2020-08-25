@@ -1,7 +1,14 @@
 import React from "react";
 import Input from "../form/Input";
 
-const SignupPage = ({ show, handleModal }) => {
+const SignupPage = ({
+  show,
+  handleModal,
+  value,
+  handleChange,
+  onSubmit,
+  error,
+}) => {
   return (
     <div hidden={show} className="signup-modal">
       <div className="modal-dialog w-75 shadow">
@@ -16,15 +23,36 @@ const SignupPage = ({ show, handleModal }) => {
               <span>&times;</span>
             </button>
           </div>
-          <div className="modal-body">
-            <Input label="Username" htmlFor="name" type="text" />
-            <Input label="Email" htmlFor="email" type="text" />
-            <Input label="Password" htmlFor="password" type="password" />
-          </div>
-          <div className="modal-footer border-0">
-            <button type="button" className="btn btn-primary">
-              Sign up
-            </button>
+          <div className="modal-body mb-3">
+            <form onSubmit={onSubmit}>
+              <Input
+                label="Username"
+                htmlFor="username"
+                type="text"
+                value={value.username}
+                handleChange={handleChange}
+              />
+              <Input
+                label="Email"
+                htmlFor="email"
+                type="email"
+                value={value.email}
+                handleChange={handleChange}
+              />
+              <Input
+                label="Password"
+                htmlFor="password"
+                type="password"
+                value={value.password}
+                handleChange={handleChange}
+              />
+              <div className="text-center">
+                <button type="submit" className="btn btn-primary btn-block">
+                  Sign up
+                </button>
+                <p className="mt-3">{error}</p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
