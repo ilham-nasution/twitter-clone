@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
   let history = useHistory();
+
   const [show, setShow] = useState(true);
   const [value, setValue] = useState({
     username: "",

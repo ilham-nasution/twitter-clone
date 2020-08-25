@@ -44,3 +44,17 @@
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.438);
 }
+
+.twitter-btn {
+  background-color: transparent;
+  border: none;
+  color: whitesmoke;
+  padding: 8px 16px;
+  font-size: x-large;
+  display: block;
+}
+
+.twitter-btn:hover {
+  background-color: #253441;
+  border-radius: 25px;
+}
