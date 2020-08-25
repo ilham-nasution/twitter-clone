@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import SignupPage from "./SignupPage";
 import Input from "../form/Input";
 import firebase from "../../firebase/firebase";
+import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
+  let history = useHistory();
   const [show, setShow] = useState(true);
   const [value, setValue] = useState({
     username: "",
@@ -28,7 +30,10 @@ const LandingPage = () => {
     e.preventDefault();
     const { username, email, password } = value;
     try {
-      await firebase.register(username, email, password);
+      username === ""
+        ? await firebase.login(email, password)
+        : await firebase.register(username, email, password);
+      history.push("/home");
     } catch (err) {
       console.error("Auth error", err);
       setError(err.message);
@@ -63,23 +68,37 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="col bg-secondary text-white pt-2">
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="row justify-content-center align-items-center">
               <div className="col-5">
-                <Input label="Email" htmlFor="email" type="email" />
+                <Input
+                  handleChange={handleChange}
+                  label="Email"
+                  htmlFor="email"
+                  type="email"
+                  value={value.email}
+                />
               </div>
               <div className="col-5 label-custom">
-                <Input label="Password" htmlFor="password" type="password" />
+                <Input
+                  handleChange={handleChange}
+                  label="Password"
+                  htmlFor="password"
+                  type="password"
+                  value={value.password}
+                />
                 <a className="forgot-link" href="#">
                   Forgot password?
                 </a>
               </div>
               <div className="col-2 pb-3">
-                <button className="btn btn-outline-primary">Log in</button>
+                <button type="submit" className="btn btn-outline-primary">
+                  Log in
+                </button>
               </div>
             </div>
           </form>
-
+          <p className="mt-2">{error}</p>
           <div className="center h-75">
             <div className="w-50">
               <h3>
