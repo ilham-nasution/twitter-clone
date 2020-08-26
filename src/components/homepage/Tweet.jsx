@@ -1,8 +1,10 @@
 import React from "react";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 
-const Tweet = () => {
+const Tweet = ({ tweet }) => {
+  console.log(tweet);
   return (
-    <li className="media border-bottom">
+    <li className="media border-bottom mt-3">
       <img
         src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
         className="mx-3"
@@ -12,15 +14,16 @@ const Tweet = () => {
       />
       <div className="media-body px-3">
         <h5 className="mt-0 mb-1">
-          Username
+          {tweet.tweetBy.username}
           <span className="text-muted ml-2">
-            <small>@username · 9m</small>
+            <small>
+              @{tweet.tweetBy.username} ·{" "}
+              {formatDistanceToNowStrict(tweet.created_at)}
+            </small>
           </span>
         </h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-        ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
-        viverra turpis.
-        <div className="row justify-content-between mt-2">
+        {tweet.tweet}
+        <div className="row justify-content-between mt-2 mr-5">
           <button className="twitter-btn h6">
             <i className="far fa-comment"></i>
           </button>
