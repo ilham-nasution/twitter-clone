@@ -1,5 +1,6 @@
 import React from "react";
 import firebase from "../../firebase/firebase";
+import TweetList from "./TweetList";
 
 const Homepage = () => {
   return (
@@ -72,6 +73,7 @@ const Homepage = () => {
               </form>
             </div>
             <hr className="bg-light py-2" />
+            <TweetList />
           </div>
           <div className="col-3"></div>
         </div>
