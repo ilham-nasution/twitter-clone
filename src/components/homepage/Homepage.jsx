@@ -51,7 +51,7 @@ const Homepage = () => {
         </div>
         <div className="col-6 border-right m-0 p-0 border-customLine">
           <Route exact path="/home">
-            <h3 className="text-white ml-3 mt-3">Home</h3>
+            <h4 className="text-white font-weight-bold ml-3 my-2">Home</h4>
             <div className="row border-top m-0 pt-4 border-customLine">
               <TweetInput
                 handleTweet={handleTweet}
