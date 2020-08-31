@@ -4,8 +4,8 @@ import Tweet from "./Tweet";
 const TweetList = ({ tweets }) => {
   return (
     <ul className="list-unstyled text-white">
-      {tweets.map((tweet, index) => (
-        <Tweet key={index} tweet={tweet} />
+      {tweets.map((tweet) => (
+        <Tweet key={tweet.id} tweet={tweet} />
       ))}
     </ul>
   );

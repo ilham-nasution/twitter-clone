@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TweetList from "./TweetList";
 import TweetInput from "./TweetInput";
-import firebase from "../../firebase/firebase";
 import firebaseContext from "../../firebase/context";
+import Trends from "./Trends";
+import TweetDetails from "./TweetDetails";
 
 const Homepage = () => {
   let history = useHistory();
   const [tweets, setTweets] = useState([]);
-  const { user } = useContext(firebaseContext);
+  const { user, firebase } = useContext(firebaseContext);
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -18,10 +19,11 @@ const Homepage = () => {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          setTweets((prevValues) => [...prevValues, doc.data()]);
+          const data = { id: doc.id, ...doc.data() };
+          setTweets((prevValues) => [...prevValues, data]);
         });
       });
-  }, []);
+  }, [firebase]);
 
   const handleTweet = (e) => {
     e.preventDefault();
@@ -42,22 +44,22 @@ const Homepage = () => {
   };
 
   return (
-    <div className="bg-secondary">
-      <div className="container-fluid vh-100">
-        <div className="row h-100 ">
-          <div className="col-3 border-right">
-            <Sidebar user={user} />
-          </div>
-          <div className="col-6 border-right m-0 p-0">
+    <div className="container-fluid vh-100 px-5">
+      <div className="row h-100 ">
+        <div className="col-3 border-right border-customLine">
+          <Sidebar user={user} />
+        </div>
+        <div className="col-6 border-right m-0 p-0 border-customLine">
+          <Route exact path="/home">
             <h3 className="text-white ml-3 mt-3">Home</h3>
-            <div className="row border-top m-0 pt-4">
+            <div className="row border-top m-0 pt-4 border-customLine">
               <TweetInput
                 handleTweet={handleTweet}
                 value={value}
                 setValue={setValue}
               />
             </div>
-            <hr className="bg-light py-2" />
+            <hr className="bg-customLine py-1" />
             {user ? (
               <TweetList tweets={tweets} />
             ) : (
@@ -71,36 +73,13 @@ const Homepage = () => {
                 </button>
               </div>
             )}
-          </div>
-          <div className="col-3">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search Twitter"
-            />
-            <i className="fas fa-search search-icon"></i>
-            <div className="rounded bg-custom mt-3 py-3">
-              <h5 className="text-white ml-3">World Trends</h5>
-              <hr className="bg-white" />
-              <div className="ml-3">
-                <p className="text-muted">1 · Entertainment · Trending</p>
-                <h5 className="text-white">#VMAs</h5>
-                <p className="text-muted">260k Tweets</p>
-              </div>
-              <hr className="bg-white" />
-              <div className="ml-3">
-                <p className="text-muted">2 · Entertainment · Trending</p>
-                <h5 className="text-white">#VMAs</h5>
-                <p className="text-muted">260k Tweets</p>
-              </div>
-              <hr className="bg-white" />
-              <div className="ml-3">
-                <p className="text-muted">3 · Entertainment · Trending</p>
-                <h5 className="text-white">#VMAs</h5>
-                <p className="text-muted">260k Tweets</p>
-              </div>
-            </div>
-          </div>
+          </Route>
+          <Route exact path="/:username/:tweet_id">
+            <TweetDetails firebase={firebase} />
+          </Route>
+        </div>
+        <div className="col-3">
+          <Trends />
         </div>
       </div>
     </div>

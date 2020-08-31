@@ -22,9 +22,7 @@ const App = () => {
           <Route exact path="/">
             {user ? <Redirect to="/home" /> : <LandingPage />}
           </Route>
-          <Route exact path="/home">
-            <Homepage />
-          </Route>
+          <Homepage />
         </Switch>
       </FirebaseContext.Provider>
     </Router>

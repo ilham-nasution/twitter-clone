@@ -93,7 +93,10 @@ const LandingPage = () => {
                 </a>
               </div>
               <div className="col-2 pb-3">
-                <button type="submit" className="btn btn-outline-primary">
+                <button
+                  type="submit"
+                  className="btn btn-outline-primary rounded-pill px-3"
+                >
                   Log in
                 </button>
               </div>
@@ -111,7 +114,7 @@ const LandingPage = () => {
               <h5>Join Twitter today.</h5>
               <button
                 onClick={handleModal}
-                className="btn btn-primary btn-block"
+                className="btn btn-primary btn-block rounded-pill"
               >
                 Sign up
               </button>
