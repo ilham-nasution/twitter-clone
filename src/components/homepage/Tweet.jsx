@@ -17,7 +17,7 @@ const Tweet = ({ tweet }) => {
           {tweet.tweetBy.username}
           <span className="text-muted ml-2">
             <small>
-              @{tweet.tweetBy.username} ·{" "}
+              @{tweet.tweetBy.username} ·
               {formatDistanceToNowStrict(tweet.created_at)}
             </small>
           </span>

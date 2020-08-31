@@ -72,3 +72,25 @@
   width: 85%;
   border-bottom: 1px solid rgb(146, 146, 146);
 }
+
+.search-input {
+  margin-top: 8px;
+  border: none;
+  border-radius: 50rem;
+  padding: 8px 16px 8px 43px;
+  color: whitesmoke;
+  width: 100%;
+  background-color: rgba(245, 245, 245, 0.055);
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  color: gray;
+  left: 32px;
+  top: 19px;
+  font-size: large;
+}

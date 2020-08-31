@@ -72,7 +72,35 @@ const Homepage = () => {
               </div>
             )}
           </div>
-          <div className="col-3"></div>
+          <div className="col-3">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search Twitter"
+            />
+            <i className="fas fa-search search-icon"></i>
+            <div className="rounded bg-custom mt-3 py-3">
+              <h5 className="text-white ml-3">World Trends</h5>
+              <hr className="bg-white" />
+              <div className="ml-3">
+                <p className="text-muted">1 · Entertainment · Trending</p>
+                <h5 className="text-white">#VMAs</h5>
+                <p className="text-muted">260k Tweets</p>
+              </div>
+              <hr className="bg-white" />
+              <div className="ml-3">
+                <p className="text-muted">2 · Entertainment · Trending</p>
+                <h5 className="text-white">#VMAs</h5>
+                <p className="text-muted">260k Tweets</p>
+              </div>
+              <hr className="bg-white" />
+              <div className="ml-3">
+                <p className="text-muted">3 · Entertainment · Trending</p>
+                <h5 className="text-white">#VMAs</h5>
+                <p className="text-muted">260k Tweets</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

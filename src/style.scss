@@ -1,6 +1,7 @@
 $theme-colors: (
   "primary": #20a1f1,
-  "secondary": #15212b
+  "secondary": #15212b,
+  "custom": rgba(245, 245, 245, 0.055),
 );
 
 @import "node_modules/bootstrap/scss/bootstrap";
