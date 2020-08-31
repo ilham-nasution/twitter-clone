@@ -60,7 +60,7 @@ const LandingPage = () => {
             </h5>
             <h5 className="mb-5">
               <i className="mr-4 far fa-user"></i>
-              <strong>Hear what peopleare talking about.</strong>
+              <strong>Hear what people are talking about.</strong>
             </h5>
             <h5 className="mb-5">
               <i className="mr-4 far fa-comment"></i>
@@ -114,9 +114,6 @@ const LandingPage = () => {
                 className="btn btn-primary btn-block"
               >
                 Sign up
-              </button>
-              <button className="btn btn-outline-primary btn-block">
-                Log in
               </button>
             </div>
           </div>

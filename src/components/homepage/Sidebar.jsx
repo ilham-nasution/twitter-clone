@@ -1,7 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import firebase from "../../firebase/firebase";
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
+  let history = useHistory();
+
+  const handleLogout = () => {
+    firebase.logout();
+    history.push("/");
+  };
+
   return (
     <>
       <button className="twitter-btn">
@@ -31,19 +39,16 @@ const Sidebar = () => {
       <button className="twitter-btn">
         <i className="far fa-dot-circle mr-2"></i> More
       </button>
-      <div className="text-center">
-        <button className="btn btn-primary btn-block mt-4 rounded-pill">
-          Tweet
-        </button>
-      </div>
-      <div className="text-center">
-        <button
-          onClick={() => firebase.logout()}
-          className="btn btn-primary btn-block mt-4 rounded-pill"
-        >
-          Logout
-        </button>
-      </div>
+      {user && (
+        <div className="text-center">
+          <button
+            onClick={handleLogout}
+            className="btn btn-primary btn-block mt-4 rounded-pill"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </>
   );
 };

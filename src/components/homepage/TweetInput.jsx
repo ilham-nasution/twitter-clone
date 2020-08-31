@@ -1,28 +1,6 @@
-import React, { useState, useContext } from "react";
-import firebaseContext from "../../firebase/context";
-import firebase from "../../firebase/firebase";
+import React from "react";
 
-const TweetInput = () => {
-  const { user } = useContext(firebaseContext);
-  const [value, setValue] = useState("");
-
-  const handleTweet = (e) => {
-    e.preventDefault();
-    const newTweet = {
-      tweet: value,
-      tweetBy: {
-        id: user.uid,
-        username: user.displayName,
-      },
-      loveCount: 0,
-      loves: [],
-      comments: [],
-      created_at: Date.now(),
-    };
-    firebase.db.collection("tweets").add(newTweet);
-    setValue("");
-  };
-
+const TweetInput = ({ handleTweet, value, setValue }) => {
   return (
     <form className="w-100" onSubmit={handleTweet}>
       <span className="h1 text-white mx-3">
