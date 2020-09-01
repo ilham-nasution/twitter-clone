@@ -49,6 +49,14 @@ body {
   background-color: rgba(0, 0, 0, 0.438);
 }
 
+.comment-modal {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(206, 206, 206, 0.212);
+}
+
 .twitter-btn {
   background-color: transparent;
   border: none;
@@ -63,6 +71,10 @@ body {
   border-radius: 50rem;
 }
 
+.twitter-btn:focus {
+  outline: none;
+}
+
 .tweet-input {
   background-color: transparent;
   border: none;
@@ -75,6 +87,18 @@ body {
   padding-bottom: 16px;
   width: 85%;
   border-bottom: 1px solid rgb(146, 146, 146);
+}
+
+.reply-input {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: whitesmoke;
+}
+
+.reply-input:focus {
+  outline: none;
+  width: 85%;
 }
 
 .search-input {

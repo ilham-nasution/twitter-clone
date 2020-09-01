@@ -6,18 +6,21 @@ const TweetDetails = ({ firebase }) => {
   let history = useHistory();
   const [tweet, setTweet] = useState({ tweetBy: {} });
   const { tweet_id } = useParams();
-  const docRef = firebase.db.collection("tweets").doc(tweet_id);
 
   useEffect(() => {
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        console.log(doc.data());
-        setTweet(doc.data());
-      } else {
-        console.log("not found!!");
-      }
-    });
-  }, []);
+    firebase.db
+      .collection("tweets")
+      .doc(tweet_id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          setTweet(doc.data());
+        } else {
+          console.log("not found!!");
+        }
+      });
+  }, [tweet_id, firebase]);
 
   return (
     <>
