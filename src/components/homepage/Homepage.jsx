@@ -46,8 +46,8 @@ const Homepage = () => {
 
   return (
     <>
-      <Route exact path="/compose/tweet">
-        <Comment />
+      <Route exact path="/compose/tweet/:id">
+        <Comment firebase={firebase} user={user} />
       </Route>
       <div className="container-fluid vh-100 px-5">
         <div className="row h-100 ">

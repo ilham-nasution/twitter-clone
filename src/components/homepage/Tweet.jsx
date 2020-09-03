@@ -29,9 +29,13 @@ const Tweet = ({ tweet }) => {
           {tweet.tweet}
         </Link>
         <div className="row justify-content-between mt-2 mr-5">
-          <Link to="compose/tweet">
+          <Link
+            to={`compose/tweet/${tweet.id}`}
+            className="text-decoration-none"
+          >
             <button className="twitter-btn h6">
-              <i className="far fa-comment"></i>
+              <i className="far fa-comment"></i>{" "}
+              {tweet.comments.length > 0 && tweet.comments.length}
             </button>
           </Link>
           <button className="twitter-btn h6">

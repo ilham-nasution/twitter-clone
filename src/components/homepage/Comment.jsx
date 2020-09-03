@@ -1,8 +1,52 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 
-const Comment = () => {
+const Comment = ({ firebase, user }) => {
+  const [tweet, setTweet] = useState({ tweetBy: {} });
+  const [value, setValue] = useState("");
   let history = useHistory();
+  let { id } = useParams();
+
+  useEffect(() => {
+    firebase.db
+      .collection("tweets")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          setTweet(doc.data());
+        } else {
+          console.log("not found!!");
+        }
+      });
+  }, [id, firebase]);
+
+  const handleComment = (e) => {
+    e.preventDefault();
+    firebase.db
+      .collection("tweets")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const previousComments = doc.data().comments;
+          const comment = {
+            postedBy: { id: user.uid, name: user.displayName },
+            created_at: Date.now(),
+            text: value,
+          };
+          const updatedComments = [...previousComments, comment];
+          firebase.db
+            .collection("tweets")
+            .doc(id)
+            .update({ comments: updatedComments });
+          setValue("");
+          history.push(`/${doc.data().tweetBy.username}/status/${doc.id}`);
+        }
+      });
+  };
 
   return (
     <div className="comment-modal">
@@ -30,24 +74,25 @@ const Comment = () => {
               />
               <div className="media-body px-3">
                 <h5 className="my-0">
-                  Username
+                  {tweet.tweetBy.username}
                   <span className="text-muted ml-2">
-                    <small>@Username · 2h</small>
+                    <small>
+                      @{tweet.tweetBy.username} ·{" "}
+                      {tweet.created_at &&
+                        formatDistanceToNowStrict(tweet.created_at)}
+                    </small>
                   </span>
                 </h5>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam a
-                iusto maiores tempora ipsum unde corporis recusandae! Porro ea
-                rem labore consequatur corporis dicta vel! Beatae exercitationem
-                nam laborum nulla.
+                {tweet.tweet}
                 <p className="text-muted mt-3">
                   Replying to{" "}
                   <a href="#" className="text-decoration-none">
-                    @username
+                    @{tweet.tweetBy.username}
                   </a>
                 </p>
               </div>
             </div>
-            <form className="mt-4">
+            <form className="mt-4" onSubmit={handleComment}>
               <div className="d-flex">
                 <img
                   src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
@@ -57,7 +102,9 @@ const Comment = () => {
                   width="48"
                 />
                 <input
+                  onChange={(e) => setValue(e.target.value)}
                   name="tweet"
+                  value={value}
                   className="reply-input"
                   type="text"
                   placeholder="Tweet your reply"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import format from "date-fns/format";
 import { useParams, useHistory } from "react-router-dom";
+import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 
 const TweetDetails = ({ firebase }) => {
   let history = useHistory();
@@ -81,6 +82,51 @@ const TweetDetails = ({ firebase }) => {
           </button>
         </div>
       </div>
+      <ul className="list-unstyled text-white">
+        {tweet.comments &&
+          tweet.comments.map((comment) => (
+            <li
+              key={comment}
+              className="media border-bottom border-customLine mt-3"
+            >
+              <img
+                src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+                className="mx-3"
+                alt="user"
+                height="48"
+                width="48"
+              />
+              <div className="media-body px-3">
+                <h5 className="mt-0 mb-1">
+                  {comment.postedBy.name}
+                  <span className="text-muted ml-2">
+                    <small>
+                      @{comment.postedBy.name} ·{" "}
+                      {formatDistanceToNowStrict(comment.created_at)}
+                    </small>
+                  </span>
+                </h5>
+                {comment.text}
+
+                <div className="row justify-content-between mt-2 mr-5">
+                  <button className="twitter-btn h6">
+                    <i className="far fa-comment"></i>
+                  </button>
+
+                  <button className="twitter-btn h6">
+                    <i className="fas fa-retweet"></i>
+                  </button>
+                  <button className="twitter-btn h6">
+                    <i className="far fa-heart"></i>
+                  </button>
+                  <button className="twitter-btn h6">
+                    <i className="far fa-share-square"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+      </ul>
     </>
   );
 };
