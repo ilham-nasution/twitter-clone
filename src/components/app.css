@@ -107,7 +107,7 @@ body {
   border-radius: 50rem;
   padding: 8px 16px 8px 43px;
   color: whitesmoke;
-  width: 100%;
+  width: 300px;
   background-color: rgba(245, 245, 245, 0.055);
 }
 
@@ -118,7 +118,7 @@ body {
 .search-icon {
   position: absolute;
   color: gray;
-  left: 32px;
+  left: 20px;
   top: 19px;
   font-size: large;
 }

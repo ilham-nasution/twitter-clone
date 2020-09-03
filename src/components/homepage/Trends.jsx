@@ -2,7 +2,7 @@ import React from "react";
 
 const Trends = () => {
   return (
-    <>
+    <div className="position-fixed">
       <input
         type="text"
         className="search-input"
@@ -34,7 +34,7 @@ const Trends = () => {
           Show more
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

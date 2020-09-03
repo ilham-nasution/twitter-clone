@@ -12,7 +12,7 @@ const Sidebar = () => {
   };
 
   return (
-    <>
+    <div className="position-fixed">
       <button className="twitter-btn">
         <i className="fab fa-twitter "></i>
       </button>
@@ -50,7 +50,7 @@ const Sidebar = () => {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
