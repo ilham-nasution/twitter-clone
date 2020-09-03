@@ -17,6 +17,7 @@ const Homepage = () => {
   useEffect(() => {
     firebase.db
       .collection("tweets")
+      .orderBy("created_at", "desc")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -50,7 +51,7 @@ const Homepage = () => {
         <Comment firebase={firebase} user={user} />
       </Route>
       <div className="container-fluid vh-100 px-5">
-        <div className="row h-100 ">
+        <div className="row h-100">
           <div className="col-3 border-right border-customLine">
             <Sidebar user={user} />
           </div>
