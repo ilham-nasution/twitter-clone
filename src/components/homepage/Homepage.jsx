@@ -40,7 +40,7 @@ const Homepage = () => {
       comments: [],
       created_at: Date.now(),
     };
-    setTweets((prevValues) => [...prevValues, newTweet]);
+    setTweets((prevValues) => [newTweet, ...prevValues]);
     firebase.db.collection("tweets").add(newTweet);
     setValue("");
   };
@@ -53,20 +53,38 @@ const Homepage = () => {
       .then((doc) => {
         if (doc.exists) {
           const previousLoves = doc.data().loves;
-          const love = user.displayName;
-          const updatedLoves = [...previousLoves, love];
-          firebase.db
-            .collection("tweets")
-            .doc(id)
-            .update({ loves: updatedLoves, loveCount: updatedLoves.length });
-          const result = tweets.map((tweet) => {
-            if (tweet.id === id) {
-              tweet.loves = updatedLoves;
-              tweet.loveCount = updatedLoves.length;
-            }
-            return tweet;
-          });
-          setTweets(result);
+          const username = user.displayName;
+          if (previousLoves.includes(user.displayName)) {
+            const updatedLoves = previousLoves.filter(
+              (love) => love !== username
+            );
+            firebase.db
+              .collection("tweets")
+              .doc(id)
+              .update({ loves: updatedLoves, loveCount: updatedLoves.length });
+            const result = tweets.map((tweet) => {
+              if (tweet.id === id) {
+                tweet.loves = updatedLoves;
+                tweet.loveCount = updatedLoves.length;
+              }
+              return tweet;
+            });
+            setTweets(result);
+          } else {
+            const updatedLoves = [...previousLoves, username];
+            firebase.db
+              .collection("tweets")
+              .doc(id)
+              .update({ loves: updatedLoves, loveCount: updatedLoves.length });
+            const result = tweets.map((tweet) => {
+              if (tweet.id === id) {
+                tweet.loves = updatedLoves;
+                tweet.loveCount = updatedLoves.length;
+              }
+              return tweet;
+            });
+            setTweets(result);
+          }
         }
       });
   };
