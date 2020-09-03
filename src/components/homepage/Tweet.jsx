@@ -2,7 +2,7 @@ import React from "react";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import { Link } from "react-router-dom";
 
-const Tweet = ({ tweet, handleLove }) => {
+const Tweet = ({ tweet, handleLove, user }) => {
   return (
     <li className="media border-bottom border-customLine mt-3">
       <img
@@ -42,10 +42,16 @@ const Tweet = ({ tweet, handleLove }) => {
             <i className="fas fa-retweet"></i>
           </button>
           <button
-            onClick={(e) => handleLove(e, tweet.id)}
+            onClick={() => handleLove(tweet.id)}
             className="twitter-btn h6"
           >
-            <i className="far fa-heart mr-1"></i>{" "}
+            <i
+              className={
+                tweet.loves.includes(user.displayName)
+                  ? "far fa-heart mr-1 text-danger"
+                  : "far fa-heart mr-1"
+              }
+            ></i>{" "}
             {tweet.loveCount > 0 && tweet.loveCount}
           </button>
           <button className="twitter-btn h6">

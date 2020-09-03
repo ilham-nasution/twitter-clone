@@ -45,8 +45,7 @@ const Homepage = () => {
     setValue("");
   };
 
-  const handleLove = (e, id) => {
-    e.preventDefault();
+  const handleLove = (id) => {
     firebase.db
       .collection("tweets")
       .doc(id)
@@ -62,7 +61,8 @@ const Homepage = () => {
             .update({ loves: updatedLoves, loveCount: updatedLoves.length });
           const result = tweets.map((tweet) => {
             if (tweet.id === id) {
-              tweet.loveCount++;
+              tweet.loves = updatedLoves;
+              tweet.loveCount = updatedLoves.length;
             }
             return tweet;
           });
@@ -93,7 +93,11 @@ const Homepage = () => {
               </div>
               <hr className="bg-customLine py-1" />
               {user ? (
-                <TweetList tweets={tweets} handleLove={handleLove} />
+                <TweetList
+                  tweets={tweets}
+                  handleLove={handleLove}
+                  user={user}
+                />
               ) : (
                 <div className="text-white text-center mt-5">
                   <h1>Don't miss what's happening</h1>
