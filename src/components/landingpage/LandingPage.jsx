@@ -51,8 +51,8 @@ const LandingPage = () => {
         onSubmit={onSubmit}
         error={error}
       />
-      <div className="row vh-100 m-0">
-        <div className="col bg-primary text-white center">
+      <div className="row m-0">
+        <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary text-white center vh-100">
           <div>
             <h5 className="mb-5">
               <i className="mr-4 fas fa-search"></i>
@@ -68,10 +68,10 @@ const LandingPage = () => {
             </h5>
           </div>
         </div>
-        <div className="col bg-secondary text-white pt-2">
+        <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary text-white pt-2 vh-100">
           <form onSubmit={onSubmit}>
             <div className="row justify-content-center align-items-center">
-              <div className="col-5">
+              <div className="col-12 col-sm-4 label-custom offset-sm-1">
                 <Input
                   handleChange={handleChange}
                   label="Email"
@@ -80,7 +80,7 @@ const LandingPage = () => {
                   value={value.email}
                 />
               </div>
-              <div className="col-5 label-custom">
+              <div className="col-12 col-sm-4 label-custom">
                 <Input
                   handleChange={handleChange}
                   label="Password"
@@ -92,7 +92,7 @@ const LandingPage = () => {
                   Forgot password?
                 </a>
               </div>
-              <div className="col-2 pb-3">
+              <div className="col-12 col-sm-3 pb-4 mt-2 text-center">
                 <button
                   type="submit"
                   className="btn btn-outline-primary rounded-pill px-3"
@@ -103,7 +103,7 @@ const LandingPage = () => {
             </div>
           </form>
           <p className="mt-2">{error}</p>
-          <div className="center h-75">
+          <div className="center h-50 mt-5">
             <div className="w-50">
               <h3>
                 <i className="fab fa-twitter"></i>

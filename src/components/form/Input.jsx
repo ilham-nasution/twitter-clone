@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = ({ label, htmlFor, type, value, handleChange }) => {
   return (
-    <div className="label-custom">
+    <>
       <label htmlFor={htmlFor}>{label}</label>
       <input
         name={htmlFor}
@@ -12,7 +12,7 @@ const Input = ({ label, htmlFor, type, value, handleChange }) => {
         onChange={handleChange}
         required
       />
-    </div>
+    </>
   );
 };
 
