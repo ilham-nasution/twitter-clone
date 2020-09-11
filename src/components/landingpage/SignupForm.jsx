@@ -1,10 +1,10 @@
 import React from "react";
 import Input from "../form/Input";
 
-const SignupPage = ({
+const SignupForm = ({
   show,
   handleModal,
-  value,
+  values,
   handleChange,
   onSubmit,
   error,
@@ -25,27 +25,33 @@ const SignupPage = ({
           </div>
           <div className="modal-body mb-3">
             <form onSubmit={onSubmit}>
-              <Input
-                label="Username"
-                htmlFor="username"
-                type="text"
-                value={value.username}
-                handleChange={handleChange}
-              />
-              <Input
-                label="Email"
-                htmlFor="email"
-                type="email"
-                value={value.email}
-                handleChange={handleChange}
-              />
-              <Input
-                label="Password"
-                htmlFor="password"
-                type="password"
-                value={value.password}
-                handleChange={handleChange}
-              />
+              <div className="label-custom">
+                <Input
+                  label="Username"
+                  htmlFor="username"
+                  type="text"
+                  value={values.username}
+                  handleChange={handleChange}
+                />
+              </div>
+              <div className="label-custom">
+                <Input
+                  label="Email"
+                  htmlFor="email"
+                  type="email"
+                  value={values.email}
+                  handleChange={handleChange}
+                />
+              </div>
+              <div className="label-custom">
+                <Input
+                  label="Password"
+                  htmlFor="password"
+                  type="password"
+                  value={values.password}
+                  handleChange={handleChange}
+                />
+              </div>
               <div className="text-center">
                 <button type="submit" className="btn btn-primary btn-block">
                   Sign up
@@ -60,4 +66,4 @@ const SignupPage = ({
   );
 };
 
-export default SignupPage;
+export default SignupForm;

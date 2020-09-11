@@ -1,35 +1,32 @@
 import React, { useState } from "react";
-import SignupPage from "./SignupPage";
-import Input from "../form/Input";
+import SignupForm from "./SignupForm";
 import firebase from "../../firebase/firebase";
 import { useHistory } from "react-router-dom";
+import useForm from "../auth/useForm";
+import Input from "../form/Input";
+
+const INITIAL_STATE = {
+  username: "",
+  email: "",
+  password: "",
+};
 
 const LandingPage = () => {
-  let history = useHistory();
+  const { handleSubmit, handleChange, values } = useForm(
+    INITIAL_STATE,
+    authenticateUser
+  );
 
+  let history = useHistory();
   const [show, setShow] = useState(true);
-  const [value, setValue] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
   const [error, setError] = useState(null);
 
   const handleModal = () => {
     setShow(!show);
   };
 
-  const handleChange = (e) => {
-    e.persist();
-    setValue((prevValues) => ({
-      ...prevValues,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const { username, email, password } = value;
+  async function authenticateUser() {
+    const { username, email, password } = values;
     try {
       username === ""
         ? await firebase.login(email, password)
@@ -39,16 +36,16 @@ const LandingPage = () => {
       console.error("Auth error", err);
       setError(err.message);
     }
-  };
+  }
 
   return (
     <>
-      <SignupPage
-        value={value}
+      <SignupForm
+        values={values}
         handleChange={handleChange}
         show={show}
         handleModal={handleModal}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         error={error}
       />
       <div className="row m-0">
@@ -69,7 +66,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary text-white pt-2 vh-100">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="row justify-content-center align-items-center">
               <div className="col-12 col-sm-4 label-custom offset-sm-1">
                 <Input
@@ -77,7 +74,7 @@ const LandingPage = () => {
                   label="Email"
                   htmlFor="email"
                   type="email"
-                  value={value.email}
+                  value={values.email}
                 />
               </div>
               <div className="col-12 col-sm-4 label-custom">
@@ -86,7 +83,7 @@ const LandingPage = () => {
                   label="Password"
                   htmlFor="password"
                   type="password"
-                  value={value.password}
+                  value={values.password}
                 />
                 <a className="forgot-link" href="#">
                   Forgot password?
@@ -102,7 +99,7 @@ const LandingPage = () => {
               </div>
             </div>
           </form>
-          <p className="mt-2">{error}</p>
+          <p className="mt-2 ml-5 text-danger">{error}</p>
           <div className="center h-50 mt-5">
             <div className="w-50">
               <h3>
