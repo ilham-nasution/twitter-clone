@@ -33,7 +33,7 @@ const ForgotPassword = () => {
         <label className="text-white" htmlFor="email">
           Email address
         </label>
-        <div className="d-flex w-50">
+        <div className="d-flex w-75">
           <input
             onChange={handleChange}
             className="form-control"

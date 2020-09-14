@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import firebase from "../../firebase/firebase";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import useForm from "../auth/useForm";
 import Input from "../form/Input";
 
@@ -85,9 +85,9 @@ const LandingPage = () => {
                   type="password"
                   value={values.password}
                 />
-                <a className="forgot-link" href="#">
+                <Link className="forgot-link" to="/password_reset">
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <div className="col-12 col-sm-3 pb-4 mt-2 text-center">
                 <button
