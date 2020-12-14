@@ -2,54 +2,40 @@ import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import firebase from "../../firebase/firebase";
 import { Link, useHistory } from "react-router-dom";
-import useForm from "../auth/useForm";
-import Input from "../form/Input";
-
-const INITIAL_STATE = {
-  username: "",
-  email: "",
-  password: "",
-};
+import { useForm } from "react-hook-form";
 
 const LandingPage = () => {
-  const { handleSubmit, handleChange, values } = useForm(
-    INITIAL_STATE,
-    authenticateUser
-  );
-
   let history = useHistory();
   const [show, setShow] = useState(true);
-  const [error, setError] = useState(null);
+  const { register, handleSubmit } = useForm();
 
   const handleModal = () => {
     setShow(!show);
   };
 
-  async function authenticateUser() {
-    const { username, email, password } = values;
+  const authenticateUser = async (values) => {
+    const { email, password } = values;
     try {
-      username === ""
-        ? await firebase.login(email, password)
-        : await firebase.register(username, email, password);
+      await firebase.login(email, password);
       history.push("/home");
     } catch (err) {
       console.error("Auth error", err);
-      setError(err.message);
+      alert(err.message);
     }
-  }
+  };
 
   return (
     <>
-      <SignupForm
+      {/* <SignupForm
         values={values}
         handleChange={handleChange}
         show={show}
         handleModal={handleModal}
         onSubmit={handleSubmit}
         error={error}
-      />
-      <div className="row m-0">
-        <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary text-white center vh-100">
+      /> */}
+      <div className="row m-0 text-white">
+        <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary center vh-100">
           <div>
             <h5 className="mb-5">
               <i className="mr-4 fas fa-search"></i>
@@ -65,41 +51,36 @@ const LandingPage = () => {
             </h5>
           </div>
         </div>
-        <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary text-white pt-2 vh-100">
-          <form onSubmit={handleSubmit}>
-            <div className="row justify-content-center align-items-center">
-              <div className="col-12 col-sm-4 label-custom offset-sm-1">
-                <Input
-                  handleChange={handleChange}
-                  label="Email"
-                  htmlFor="email"
-                  type="email"
-                  value={values.email}
-                />
-              </div>
-              <div className="col-12 col-sm-4 label-custom">
-                <Input
-                  handleChange={handleChange}
-                  label="Password"
-                  htmlFor="password"
-                  type="password"
-                  value={values.password}
-                />
-                <Link className="forgot-link" to="/password_reset">
-                  Forgot password?
-                </Link>
-              </div>
-              <div className="col-12 col-sm-3 pb-4 mt-2 text-center">
-                <button
-                  type="submit"
-                  className="btn btn-outline-primary rounded-pill px-3"
-                >
-                  Log in
-                </button>
-              </div>
+        <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary px-5 pt-3 vh-100">
+          <form
+            className="d-none d-xl-flex align-items-center"
+            onSubmit={handleSubmit(authenticateUser)}
+          >
+            <div className="custom-form-group">
+              <label>Phone, email, or username</label>
+              <input
+                type="email"
+                className="custom-input"
+                name="email"
+                ref={register}
+              />
             </div>
+            <div className="custom-form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                className="custom-input"
+                name="password"
+                ref={register}
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-outline-primary rounded-pill mb-3"
+            >
+              Log in
+            </button>
           </form>
-          <p className="mt-2 ml-5 text-danger">{error}</p>
           <div className="center h-50 mt-5">
             <div className="w-50">
               <h3>
@@ -109,6 +90,9 @@ const LandingPage = () => {
                 <strong>See what's happening in the world right now</strong>
               </h3>
               <h5>Join Twitter today.</h5>
+              <button className="btn btn-outline-primary btn-block rounded-pill">
+                Log in
+              </button>
               <button
                 onClick={handleModal}
                 className="btn btn-primary btn-block rounded-pill"

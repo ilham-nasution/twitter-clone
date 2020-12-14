@@ -6,12 +6,12 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import LandingPage from "./landingpage/LandingPage";
-import Homepage from "./homepage/Homepage";
-import useAuth from "./auth/useAuth";
-import firebase from "../firebase/firebase";
-import FirebaseContext from "../firebase/context";
-import ForgotPassword from "./landingpage/ForgotPassword";
+import LandingPage from "./components/landingpage/LandingPage";
+import Homepage from "./components/homepage/Homepage";
+import useAuth from "./components/auth/useAuth";
+import firebase from "./firebase/firebase";
+import FirebaseContext from "./firebase/context";
+import ForgotPassword from "./components/landingpage/ForgotPassword";
 
 const App = () => {
   const user = useAuth();

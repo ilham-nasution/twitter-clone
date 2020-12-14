@@ -23,13 +23,19 @@ body {
   border-bottom: 1px solid #20a1f1;
 }
 
-.label-custom:focus-within label {
+.custom-form-group {
+  width: 224px;
+  margin: 8px 16px;
+}
+
+.custom-form-group:focus-within label {
   color: #20a1f1 !important;
 }
 
-.label-custom label {
+.custom-form-group label {
   position: absolute;
   padding-left: 8px;
+  font-size: smaller;
 }
 
 .forgot-link {
