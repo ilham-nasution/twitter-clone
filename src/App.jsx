@@ -12,6 +12,7 @@ import useAuth from "./components/auth/useAuth";
 import firebase from "./firebase/firebase";
 import FirebaseContext from "./firebase/context";
 import ForgotPassword from "./components/landingpage/ForgotPassword";
+import LoginPage from "./containers/LoginPage";
 
 const App = () => {
   const user = useAuth();
@@ -25,6 +26,9 @@ const App = () => {
           </Route>
           <Route exact path="/password_reset">
             <ForgotPassword />
+          </Route>
+          <Route exact path="/login">
+            <LoginPage />
           </Route>
           <Homepage />
         </Switch>

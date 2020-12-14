@@ -26,14 +26,7 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* <SignupForm
-        values={values}
-        handleChange={handleChange}
-        show={show}
-        handleModal={handleModal}
-        onSubmit={handleSubmit}
-        error={error}
-      /> */}
+      <SignupForm show={show} handleModal={handleModal} />
       <div className="row m-0 text-white">
         <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary center vh-100">
           <div>
@@ -53,11 +46,11 @@ const LandingPage = () => {
         </div>
         <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary px-5 pt-3 vh-100">
           <form
-            className="d-none d-xl-flex align-items-center"
+            className="d-none d-xl-flex align-items-center justify-content-center"
             onSubmit={handleSubmit(authenticateUser)}
           >
-            <div className="custom-form-group">
-              <label>Phone, email, or username</label>
+            <div className="custom-form-group mr-3">
+              <label>Email or username</label>
               <input
                 type="email"
                 className="custom-input"
@@ -65,7 +58,7 @@ const LandingPage = () => {
                 ref={register}
               />
             </div>
-            <div className="custom-form-group">
+            <div className="custom-form-group mr-3">
               <label>Password</label>
               <input
                 type="password"
@@ -90,9 +83,12 @@ const LandingPage = () => {
                 <strong>See what's happening in the world right now</strong>
               </h3>
               <h5>Join Twitter today.</h5>
-              <button className="btn btn-outline-primary btn-block rounded-pill">
+              <Link
+                to="/login"
+                className="btn btn-outline-primary btn-block rounded-pill"
+              >
                 Log in
-              </button>
+              </Link>
               <button
                 onClick={handleModal}
                 className="btn btn-primary btn-block rounded-pill"

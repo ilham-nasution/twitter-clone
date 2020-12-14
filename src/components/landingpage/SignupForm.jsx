@@ -1,14 +1,23 @@
 import React from "react";
-import Input from "../form/Input";
+import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import firebase from "../../firebase/firebase";
 
-const SignupForm = ({
-  show,
-  handleModal,
-  values,
-  handleChange,
-  onSubmit,
-  error,
-}) => {
+const SignupForm = ({ show, handleModal }) => {
+  let history = useHistory();
+  const { register, handleSubmit } = useForm();
+
+  const handleSignUp = async (values) => {
+    const { username, email, password } = values;
+    try {
+      await firebase.register(username, email, password);
+      history.push("/home");
+    } catch (err) {
+      console.error("Auth error", err);
+      alert(err.message);
+    }
+  };
+
   return (
     <div hidden={show} className="signup-modal">
       <div className="modal-dialog w-75 shadow">
@@ -24,39 +33,41 @@ const SignupForm = ({
             </button>
           </div>
           <div className="modal-body mb-3">
-            <form onSubmit={onSubmit}>
-              <div className="label-custom">
-                <Input
-                  label="Username"
-                  htmlFor="username"
+            <form onSubmit={handleSubmit(handleSignUp)}>
+              <div className="custom-form-group">
+                <label>Username</label>
+                <input
                   type="text"
-                  value={values.username}
-                  handleChange={handleChange}
+                  className="custom-input"
+                  name="username"
+                  ref={register}
                 />
               </div>
-              <div className="label-custom">
-                <Input
-                  label="Email"
-                  htmlFor="email"
+              <div className="custom-form-group">
+                <label>Email</label>
+                <input
                   type="email"
-                  value={values.email}
-                  handleChange={handleChange}
+                  className="custom-input"
+                  name="email"
+                  ref={register}
                 />
               </div>
-              <div className="label-custom">
-                <Input
-                  label="Password"
-                  htmlFor="password"
+              <div className="custom-form-group">
+                <label>Password</label>
+                <input
                   type="password"
-                  value={values.password}
-                  handleChange={handleChange}
+                  className="custom-input"
+                  name="password"
+                  ref={register}
                 />
               </div>
               <div className="text-center">
-                <button type="submit" className="btn btn-primary btn-block">
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block rounded-pill"
+                >
                   Sign up
                 </button>
-                <p className="mt-3">{error}</p>
               </div>
             </form>
           </div>
