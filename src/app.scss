@@ -16,45 +16,50 @@ body {
   color: whitesmoke;
   margin-bottom: 16px;
   width: 100%;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #20a1f1;
+  }
 }
 
-.custom-input:focus {
-  outline: none;
-  border-bottom: 1px solid #20a1f1;
-}
+.custom-form-group {
+  position: relative;
 
-.custom-form-group:focus-within label {
-  color: #20a1f1 !important;
-}
+  &:focus-within label {
+    color: #20a1f1 !important;
+  }
 
-.custom-form-group label {
-  position: absolute;
-  padding-left: 8px;
-  font-size: smaller;
+  label {
+    position: absolute;
+    padding-left: 8px;
+    font-size: smaller;
+  }
 }
 
 .forgot-link {
   position: absolute;
-  left: 16px;
+  left: 0;
   bottom: -5px;
   font-size: small;
 }
 
-.signup-modal {
-  display: grid;
-  place-items: center;
+@mixin modal {
   height: 100%;
   width: 100%;
   position: fixed;
   z-index: 1;
+}
+
+.signup-modal {
+  @include modal;
+  display: grid;
+  place-items: center;
   background-color: rgba(0, 0, 0, 0.438);
 }
 
 .comment-modal {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 1;
+  @include modal;
   background-color: rgba(206, 206, 206, 0.212);
 }
 
@@ -65,15 +70,15 @@ body {
   padding: 8px 16px;
   font-size: x-large;
   display: block;
-}
 
-.twitter-btn:hover {
-  background-color: #253441;
-  border-radius: 50rem;
-}
+  &:hover {
+    background-color: #253441;
+    border-radius: 50rem;
+  }
 
-.twitter-btn:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .tweet-input {
@@ -81,13 +86,13 @@ body {
   border: none;
   font-size: x-large;
   color: whitesmoke;
-}
 
-.tweet-input:focus {
-  outline: none;
-  padding-bottom: 16px;
-  width: 85%;
-  border-bottom: 1px solid rgb(146, 146, 146);
+  &:focus {
+    outline: none;
+    padding-bottom: 16px;
+    width: 85%;
+    border-bottom: 1px solid rgb(146, 146, 146);
+  }
 }
 
 .reply-input {
@@ -95,11 +100,11 @@ body {
   border: none;
   font-size: 20px;
   color: whitesmoke;
-}
 
-.reply-input:focus {
-  outline: none;
-  width: 85%;
+  &:focus {
+    outline: none;
+    width: 85%;
+  }
 }
 
 .search-input {
@@ -110,10 +115,10 @@ body {
   color: whitesmoke;
   width: 300px;
   background-color: rgba(245, 245, 245, 0.055);
-}
 
-.search-input:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 
 .search-icon {

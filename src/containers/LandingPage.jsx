@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import SignupForm from "./SignupForm";
-import firebase from "../../firebase/firebase";
+import React, { useContext, useState } from "react";
+import SignupModal from "../components/SignupModal";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import FirebaseContext from "../firebase/context";
 
 const LandingPage = () => {
+  const { firebase } = useContext(FirebaseContext);
   let history = useHistory();
   const [show, setShow] = useState(true);
   const { register, handleSubmit } = useForm();
@@ -13,7 +14,7 @@ const LandingPage = () => {
     setShow(!show);
   };
 
-  const authenticateUser = async (values) => {
+  const handleSignIn = async (values) => {
     const { email, password } = values;
     try {
       await firebase.login(email, password);
@@ -24,9 +25,27 @@ const LandingPage = () => {
     }
   };
 
+  const handleSignUp = async (values) => {
+    console.log(values);
+    const imageURL = await firebase.uploadImage(values.image[0]);
+    console.log(imageURL);
+    // const { username, email, password } = values;
+    // try {
+    //   await firebase.register(username, email, password);
+    //   history.push("/home");
+    // } catch (err) {
+    //   console.error("Auth error", err);
+    //   alert(err.message);
+    // }
+  };
+
   return (
     <>
-      <SignupForm show={show} handleModal={handleModal} />
+      <SignupModal
+        show={show}
+        handleModal={handleModal}
+        handleSignUp={handleSignUp}
+      />
       <div className="row m-0 text-white">
         <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary center vh-100">
           <div>
@@ -47,7 +66,7 @@ const LandingPage = () => {
         <div className="col-md-12 order-first order-lg-last col-lg-6 bg-secondary px-5 pt-3 vh-100">
           <form
             className="d-none d-xl-flex align-items-center justify-content-center"
-            onSubmit={handleSubmit(authenticateUser)}
+            onSubmit={handleSubmit(handleSignIn)}
           >
             <div className="custom-form-group mr-3">
               <label>Email or username</label>
@@ -66,6 +85,9 @@ const LandingPage = () => {
                 name="password"
                 ref={register}
               />
+              <Link to="/password_reset" className="forgot-link">
+                Forgot password?
+              </Link>
             </div>
             <button
               type="submit"

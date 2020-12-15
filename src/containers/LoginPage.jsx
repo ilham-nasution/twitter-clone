@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-import firebase from "../firebase/firebase";
+import TwitterInput from "../components/TwitterInput";
+import FirebaseContext from "../firebase/context";
 
 const LoginPage = () => {
+  const { firebase } = useContext(FirebaseContext);
   const history = useHistory();
   const { register, handleSubmit } = useForm();
 
-  const authenticateUser = async (values) => {
+  const handleSignIn = async (values) => {
     const { email, password } = values;
     try {
       await firebase.login(email, password);
@@ -20,27 +22,23 @@ const LoginPage = () => {
 
   return (
     <div className="container text-white text-center">
-      <i className="fab fa-twitter h1 mt-5"></i>
+      <Link to="/">
+        <i className="fab fa-twitter h1 mt-5"></i>
+      </Link>
       <h1 className="mb-5">Log in to twitter</h1>
-      <form className="mb-3" onSubmit={handleSubmit(authenticateUser)}>
-        <div className="custom-form-group">
-          <label>Email or username</label>
-          <input
-            type="email"
-            className="custom-input"
-            name="email"
-            ref={register}
-          />
-        </div>
-        <div className="custom-form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="custom-input"
-            name="password"
-            ref={register}
-          />
-        </div>
+      <form className="mb-3" onSubmit={handleSubmit(handleSignIn)}>
+        <TwitterInput
+          label="Email or username"
+          type="email"
+          name="email"
+          ref={register}
+        />
+        <TwitterInput
+          label="Password"
+          type="password"
+          name="password"
+          ref={register}
+        />
         <button
           type="submit"
           className="btn btn-primary btn-block rounded-pill"

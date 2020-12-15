@@ -1,17 +1,17 @@
 import React from "react";
-import "./app.css";
+import "./app.scss";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import LandingPage from "./components/landingpage/LandingPage";
+import LandingPage from "./containers/LandingPage";
 import Homepage from "./components/homepage/Homepage";
 import useAuth from "./components/auth/useAuth";
 import firebase from "./firebase/firebase";
 import FirebaseContext from "./firebase/context";
-import ForgotPassword from "./components/landingpage/ForgotPassword";
+import ForgotPassword from "./containers/ForgotPasswordPage";
 import LoginPage from "./containers/LoginPage";
 
 const App = () => {
