@@ -7,14 +7,16 @@ import FirebaseContext from "../firebase/context";
 const LandingPage = () => {
   const { firebase } = useContext(FirebaseContext);
   let history = useHistory();
-  const [show, setShow] = useState(true);
+  const [hidden, setHidden] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const handleModal = () => {
-    setShow(!show);
+    setHidden(!hidden);
   };
 
   const handleSignIn = async (values) => {
+    setLoading(true);
     const { email, password } = values;
     try {
       await firebase.login(email, password);
@@ -26,25 +28,25 @@ const LandingPage = () => {
   };
 
   const handleSignUp = async (values) => {
-    console.log(values);
-    const imageURL = await firebase.uploadImage(values.image[0]);
-    console.log(imageURL);
-    // const { username, email, password } = values;
-    // try {
-    //   await firebase.register(username, email, password);
-    //   history.push("/home");
-    // } catch (err) {
-    //   console.error("Auth error", err);
-    //   alert(err.message);
-    // }
+    setLoading(true);
+    const { username, image, email, password } = values;
+    try {
+      const imageURL = await firebase.uploadImage(image[0]);
+      await firebase.register(username, imageURL, email, password);
+      history.push("/home");
+    } catch (err) {
+      console.error("Auth error", err);
+      alert(err.message);
+    }
   };
 
   return (
     <>
       <SignupModal
-        show={show}
+        hidden={hidden}
         handleModal={handleModal}
         handleSignUp={handleSignUp}
+        loading={loading}
       />
       <div className="row m-0 text-white">
         <div className="col-md-12 order-last order-lg-first col-lg-6 bg-primary center vh-100">
@@ -89,12 +91,26 @@ const LandingPage = () => {
                 Forgot password?
               </Link>
             </div>
-            <button
-              type="submit"
-              className="btn btn-outline-primary rounded-pill mb-3"
-            >
-              Log in
-            </button>
+            {loading ? (
+              <button
+                className="btn btn-outline-primary rounded-pill mb-3 px-4"
+                type="button"
+                disabled
+              >
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="btn btn-outline-primary rounded-pill mb-3"
+              >
+                Log in
+              </button>
+            )}
           </form>
           <div className="center h-50 mt-5">
             <div className="w-50">

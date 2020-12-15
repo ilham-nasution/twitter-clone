@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import TwitterInput from "../components/TwitterInput";
@@ -8,8 +8,10 @@ const LoginPage = () => {
   const { firebase } = useContext(FirebaseContext);
   const history = useHistory();
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
 
   const handleSignIn = async (values) => {
+    setLoading(true);
     const { email, password } = values;
     try {
       await firebase.login(email, password);
@@ -39,12 +41,26 @@ const LoginPage = () => {
           name="password"
           ref={register}
         />
-        <button
-          type="submit"
-          className="btn btn-primary btn-block rounded-pill"
-        >
-          Log in
-        </button>
+        {loading ? (
+          <button
+            className="btn btn-primary btn-block rounded-pill"
+            type="button"
+            disabled
+          >
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="btn btn-primary btn-block rounded-pill"
+          >
+            Log in
+          </button>
+        )}
       </form>
       <Link to="/password_reset" className="mr-2">
         Forgot password?

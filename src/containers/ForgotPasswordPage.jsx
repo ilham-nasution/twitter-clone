@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import FirebaseContext from "../firebase/context";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 const ForgotPassword = () => {
   const { firebase } = useContext(FirebaseContext);
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
 
   const resetPassword = async (values) => {
+    setLoading(true);
     try {
       await firebase.resetPassword(values.email);
       alert("Password reset success, please check your email.");
@@ -33,9 +35,23 @@ const ForgotPassword = () => {
             placeholder="Enter your email"
             ref={register}
           />
-          <button type="submit" className="ml-3 btn btn-primary">
-            Reset
-          </button>
+          {loading ? (
+            <button
+              className="btn btn-primary rounded-pill ml-3 px-4"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </button>
+          ) : (
+            <button type="submit" className="ml-3 btn btn-primary rounded-pill">
+              Reset
+            </button>
+          )}
         </div>
       </form>
     </div>

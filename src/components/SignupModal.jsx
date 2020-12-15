@@ -2,11 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import TwitterInput from "./TwitterInput";
 
-const SignupModal = ({ show, handleModal, handleSignUp }) => {
+const SignupModal = ({ hidden, handleModal, handleSignUp, loading }) => {
   const { register, handleSubmit } = useForm();
 
   return (
-    <div hidden={show} className="signup-modal">
+    <div hidden={hidden} className="signup-modal">
       <div className="modal-dialog w-75 shadow">
         <div className="modal-content bg-secondary text-white">
           <div className="modal-header border-0">
@@ -49,12 +49,26 @@ const SignupModal = ({ show, handleModal, handleSignUp }) => {
                 ref={register}
               />
               <div className="text-center">
-                <button
-                  type="submit"
-                  className="btn btn-primary btn-block rounded-pill"
-                >
-                  Sign up
-                </button>
+                {loading ? (
+                  <button
+                    className="btn btn-primary btn-block rounded-pill"
+                    type="button"
+                    disabled
+                  >
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block rounded-pill"
+                  >
+                    Sign up
+                  </button>
+                )}
               </div>
             </form>
           </div>
