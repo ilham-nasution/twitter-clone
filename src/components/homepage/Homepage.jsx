@@ -13,7 +13,6 @@ const Homepage = () => {
   let history = useHistory();
   const [tweets, setTweets] = useState([]);
   const user = useContext(UserContext);
-  const [value, setValue] = useState("");
 
   useEffect(() => {
     firebase.db
@@ -27,24 +26,6 @@ const Homepage = () => {
         });
       });
   }, []);
-
-  const handleTweet = (e) => {
-    e.preventDefault();
-    const newTweet = {
-      tweet: value,
-      tweetBy: {
-        id: user.uid,
-        username: user.displayName,
-      },
-      loveCount: 0,
-      loves: [],
-      comments: [],
-      created_at: Date.now(),
-    };
-    setTweets((prevValues) => [newTweet, ...prevValues]);
-    firebase.db.collection("tweets").add(newTweet);
-    setValue("");
-  };
 
   const handleLove = (id) => {
     firebase.db
@@ -104,11 +85,7 @@ const Homepage = () => {
             <Route exact path="/home">
               <h4 className="text-white font-weight-bold ml-3 my-2">Home</h4>
               <div className="row border-top m-0 pt-4 border-customLine">
-                <TweetInput
-                  handleTweet={handleTweet}
-                  value={value}
-                  setValue={setValue}
-                />
+                <TweetInput setTweets={setTweets} />
               </div>
               <hr className="bg-customLine py-1" />
               {user ? (
