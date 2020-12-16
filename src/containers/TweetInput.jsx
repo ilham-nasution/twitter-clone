@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { UserContext } from "../../contexts/UserContext";
-import firebase from "../../firebase/firebase";
+import { UserContext } from "../contexts/UserContext";
+import firebase from "../firebase/firebase";
 
 const TweetInput = ({ setTweets }) => {
   const user = useContext(UserContext);
@@ -14,6 +14,7 @@ const TweetInput = ({ setTweets }) => {
       tweetBy: {
         id: user.uid,
         username: user.displayName,
+        avatar: user.photoURL,
       },
       loveCount: 0,
       loves: [],
@@ -28,7 +29,11 @@ const TweetInput = ({ setTweets }) => {
   return (
     <form className="w-100" onSubmit={handleSubmit(handleTweet)}>
       <img
-        src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+        src={
+          user.photoURL
+            ? user.photoURL
+            : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+        }
         className="mx-3"
         alt="user"
         height="48"

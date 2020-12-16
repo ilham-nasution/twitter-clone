@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
-import firebase from "../../firebase/firebase";
+import { UserContext } from "../contexts/UserContext";
+import firebase from "../firebase/firebase";
 
 const Sidebar = () => {
   let history = useHistory();

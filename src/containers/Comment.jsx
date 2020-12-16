@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import firebase from "../../firebase/firebase";
-import { UserContext } from "../../contexts/UserContext";
+import firebase from "../firebase/firebase";
+import { UserContext } from "../contexts/UserContext";
 import { useForm } from "react-hook-form";
 
 const Comment = () => {
@@ -36,7 +36,11 @@ const Comment = () => {
         if (doc.exists) {
           const previousComments = doc.data().comments;
           const comment = {
-            postedBy: { id: user.uid, name: user.displayName },
+            postedBy: {
+              id: user.uid,
+              name: user.displayName,
+              avatar: user.photoURL,
+            },
             created_at: Date.now(),
             text: values.tweet,
           };
@@ -68,7 +72,11 @@ const Comment = () => {
           <div className="modal-body">
             <div className="media">
               <img
-                src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+                src={
+                  tweet.tweetBy.avatar
+                    ? tweet.tweetBy.avatar
+                    : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+                }
                 className="mr-2"
                 alt="user"
                 height="48"
@@ -97,7 +105,11 @@ const Comment = () => {
             <form className="mt-4" onSubmit={handleSubmit(handleComment)}>
               <div className="d-flex">
                 <img
-                  src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+                  src={
+                    user.photoURL
+                      ? user.photoURL
+                      : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+                  }
                   className="mr-3"
                   alt="user"
                   height="48"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import format from "date-fns/format";
 import { useParams, useHistory } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
-import firebase from "../../firebase/firebase";
+import firebase from "../firebase/firebase";
 
 const TweetDetails = () => {
   let history = useHistory();
@@ -37,7 +37,11 @@ const TweetDetails = () => {
       <div className="text-white border-bottom border-top border-customLine p-3">
         <div className="d-flex align-items-center mb-3">
           <img
-            src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+            src={
+              tweet.tweetBy.avatar
+                ? tweet.tweetBy.avatar
+                : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+            }
             className="mr-3"
             alt="user"
             height="48"
@@ -90,7 +94,11 @@ const TweetDetails = () => {
               className="media border-bottom border-customLine mt-3"
             >
               <img
-                src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+                src={
+                  comment.postedBy.avatar
+                    ? comment.postedBy.avatar
+                    : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+                }
                 className="mx-3"
                 alt="user"
                 height="48"

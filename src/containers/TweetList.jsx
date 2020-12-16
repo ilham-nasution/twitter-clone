@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Tweet from "./Tweet";
-import firebase from "../../firebase/firebase";
-import { UserContext } from "../../contexts/UserContext";
+import Tweet from "../components/Tweet";
+import firebase from "../firebase/firebase";
+import { UserContext } from "../contexts/UserContext";
 
 const TweetList = ({ tweets, setTweets }) => {
   const user = useContext(UserContext);

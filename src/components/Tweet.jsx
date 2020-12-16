@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 const Tweet = ({ tweet, handleLove }) => {
   const user = useContext(UserContext);
@@ -9,7 +9,11 @@ const Tweet = ({ tweet, handleLove }) => {
   return (
     <li className="media border-bottom border-customLine mt-3">
       <img
-        src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
+        src={
+          tweet.tweetBy.avatar
+            ? tweet.tweetBy.avatar
+            : `https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png`
+        }
         className="mx-3"
         alt="user"
         height="48"

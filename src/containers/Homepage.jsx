@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Route, useHistory } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
 import TweetList from "./TweetList";
 import TweetInput from "./TweetInput";
-import Trends from "./Trends";
+import Trends from "../components/Trends";
 import TweetDetails from "./TweetDetails";
 import Comment from "./Comment";
-import firebase from "../../firebase/firebase";
-import { UserContext } from "../../contexts/UserContext";
+import firebase from "../firebase/firebase";
+import { UserContext } from "../contexts/UserContext";
 
 const Homepage = () => {
   let history = useHistory();

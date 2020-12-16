@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import LandingPage from "./containers/LandingPage";
-import Homepage from "./components/homepage/Homepage";
+import Homepage from "./containers/Homepage";
 import ForgotPassword from "./containers/ForgotPasswordPage";
 import LoginPage from "./containers/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
