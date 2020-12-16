@@ -3,13 +3,14 @@ import { useHistory, useParams } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import firebase from "../../firebase/firebase";
 import { UserContext } from "../../contexts/UserContext";
+import { useForm } from "react-hook-form";
 
 const Comment = () => {
   const user = useContext(UserContext);
   const [tweet, setTweet] = useState({ tweetBy: {} });
-  const [value, setValue] = useState("");
   let history = useHistory();
   let { id } = useParams();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     firebase.db
@@ -26,8 +27,7 @@ const Comment = () => {
       });
   }, [id]);
 
-  const handleComment = (e) => {
-    e.preventDefault();
+  const handleComment = (values) => {
     firebase.db
       .collection("tweets")
       .doc(id)
@@ -38,14 +38,13 @@ const Comment = () => {
           const comment = {
             postedBy: { id: user.uid, name: user.displayName },
             created_at: Date.now(),
-            text: value,
+            text: values.tweet,
           };
           const updatedComments = [...previousComments, comment];
           firebase.db
             .collection("tweets")
             .doc(id)
             .update({ comments: updatedComments });
-          setValue("");
           history.push(`/${doc.data().tweetBy.username}/status/${doc.id}`);
         }
       });
@@ -95,7 +94,7 @@ const Comment = () => {
                 </p>
               </div>
             </div>
-            <form className="mt-4" onSubmit={handleComment}>
+            <form className="mt-4" onSubmit={handleSubmit(handleComment)}>
               <div className="d-flex">
                 <img
                   src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png"
@@ -105,12 +104,12 @@ const Comment = () => {
                   width="48"
                 />
                 <input
-                  onChange={(e) => setValue(e.target.value)}
-                  name="tweet"
-                  value={value}
                   className="reply-input"
+                  name="tweet"
                   type="text"
                   placeholder="Tweet your reply"
+                  autoComplete="off"
+                  ref={register}
                 />
               </div>
               <div className="text-right mt-5">

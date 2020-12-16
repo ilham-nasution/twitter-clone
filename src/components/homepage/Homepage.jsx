@@ -27,50 +27,6 @@ const Homepage = () => {
       });
   }, []);
 
-  const handleLove = (id) => {
-    firebase.db
-      .collection("tweets")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const previousLoves = doc.data().loves;
-          const username = user.displayName;
-          if (previousLoves.includes(user.displayName)) {
-            const updatedLoves = previousLoves.filter(
-              (love) => love !== username
-            );
-            firebase.db
-              .collection("tweets")
-              .doc(id)
-              .update({ loves: updatedLoves, loveCount: updatedLoves.length });
-            const result = tweets.map((tweet) => {
-              if (tweet.id === id) {
-                tweet.loves = updatedLoves;
-                tweet.loveCount = updatedLoves.length;
-              }
-              return tweet;
-            });
-            setTweets(result);
-          } else {
-            const updatedLoves = [...previousLoves, username];
-            firebase.db
-              .collection("tweets")
-              .doc(id)
-              .update({ loves: updatedLoves, loveCount: updatedLoves.length });
-            const result = tweets.map((tweet) => {
-              if (tweet.id === id) {
-                tweet.loves = updatedLoves;
-                tweet.loveCount = updatedLoves.length;
-              }
-              return tweet;
-            });
-            setTweets(result);
-          }
-        }
-      });
-  };
-
   return (
     <>
       <Route exact path="/compose/tweet/:id">
@@ -89,7 +45,7 @@ const Homepage = () => {
               </div>
               <hr className="bg-customLine py-1" />
               {user ? (
-                <TweetList tweets={tweets} handleLove={handleLove} />
+                <TweetList tweets={tweets} setTweets={setTweets} />
               ) : (
                 <div className="text-white text-center mt-5">
                   <h1>Don't miss what's happening</h1>

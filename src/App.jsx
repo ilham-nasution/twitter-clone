@@ -29,6 +29,7 @@ const App = () => {
           <LoginPage />
         </Route>
         <PrivateRoute exact path="/home" component={Homepage} />
+        <Homepage />
       </Switch>
     </Router>
   );

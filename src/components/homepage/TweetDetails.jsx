@@ -16,10 +16,9 @@ const TweetDetails = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log(doc.data());
           setTweet(doc.data());
         } else {
-          console.log("not found!!");
+          alert("not found!!");
         }
       });
   }, [tweet_id]);
