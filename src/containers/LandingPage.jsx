@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import SignupModal from "../components/SignupModal";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import FirebaseContext from "../firebase/context";
+import firebase from "../firebase/firebase";
 
 const LandingPage = () => {
-  const { firebase } = useContext(FirebaseContext);
   let history = useHistory();
   const [hidden, setHidden] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -24,6 +23,7 @@ const LandingPage = () => {
     } catch (err) {
       console.error("Auth error", err);
       alert(err.message);
+      setLoading(false);
     }
   };
 
@@ -37,6 +37,7 @@ const LandingPage = () => {
     } catch (err) {
       console.error("Auth error", err);
       alert(err.message);
+      setLoading(false);
     }
   };
 

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import format from "date-fns/format";
 import { useParams, useHistory } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import firebase from "../../firebase/firebase";
 
-const TweetDetails = ({ firebase }) => {
+const TweetDetails = () => {
   let history = useHistory();
   const [tweet, setTweet] = useState({ tweetBy: {} });
   const { tweet_id } = useParams();
@@ -21,7 +22,7 @@ const TweetDetails = ({ firebase }) => {
           console.log("not found!!");
         }
       });
-  }, [tweet_id, firebase]);
+  }, [tweet_id]);
 
   return (
     <>
@@ -86,7 +87,7 @@ const TweetDetails = ({ firebase }) => {
         {tweet.comments &&
           tweet.comments.map((comment) => (
             <li
-              key={comment}
+              key={comment.created_at}
               className="media border-bottom border-customLine mt-3"
             >
               <img

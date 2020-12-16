@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import firebaseContext from "../../firebase/context";
+import { UserContext } from "../../contexts/UserContext";
+import firebase from "../../firebase/firebase";
 
 const Sidebar = () => {
   let history = useHistory();
-  const { user, firebase } = useContext(firebaseContext);
+  const user = useContext(UserContext);
 
   const handleLogout = () => {
     firebase.logout();

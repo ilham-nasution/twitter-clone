@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
-const Tweet = ({ tweet, handleLove, user }) => {
+const Tweet = ({ tweet, handleLove }) => {
+  const user = useContext(UserContext);
+
   return (
     <li className="media border-bottom border-customLine mt-3">
       <img

@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
-import FirebaseContext from "../firebase/context";
+import React, { useState } from "react";
+import firebase from "../firebase/firebase";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
-  const { firebase } = useContext(FirebaseContext);
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
 
@@ -13,9 +12,11 @@ const ForgotPassword = () => {
     try {
       await firebase.resetPassword(values.email);
       alert("Password reset success, please check your email.");
+      setLoading(false);
     } catch (error) {
       console.error("Error sending email", error);
       alert(error.message);
+      setLoading(false);
     }
   };
 

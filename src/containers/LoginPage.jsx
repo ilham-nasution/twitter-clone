@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import TwitterInput from "../components/TwitterInput";
-import FirebaseContext from "../firebase/context";
+import firebase from "../firebase/firebase";
 
 const LoginPage = () => {
-  const { firebase } = useContext(FirebaseContext);
   const history = useHistory();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
@@ -19,6 +18,7 @@ const LoginPage = () => {
     } catch (err) {
       console.error("Auth error", err);
       alert(err.message);
+      setLoading(false);
     }
   };
 

@@ -3,15 +3,16 @@ import { Route, useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TweetList from "./TweetList";
 import TweetInput from "./TweetInput";
-import firebaseContext from "../../firebase/context";
 import Trends from "./Trends";
 import TweetDetails from "./TweetDetails";
 import Comment from "./Comment";
+import firebase from "../../firebase/firebase";
+import { UserContext } from "../../contexts/UserContext";
 
 const Homepage = () => {
   let history = useHistory();
   const [tweets, setTweets] = useState([]);
-  const { user, firebase } = useContext(firebaseContext);
+  const user = useContext(UserContext);
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Homepage = () => {
           setTweets((prevValues) => [...prevValues, data]);
         });
       });
-  }, [firebase]);
+  }, []);
 
   const handleTweet = (e) => {
     e.preventDefault();
@@ -92,12 +93,12 @@ const Homepage = () => {
   return (
     <>
       <Route exact path="/compose/tweet/:id">
-        <Comment firebase={firebase} user={user} />
+        <Comment />
       </Route>
       <div className="container-fluid vh-100 px-5">
         <div className="row h-100">
           <div className="col-3 border-right border-customLine">
-            <Sidebar user={user} />
+            <Sidebar />
           </div>
           <div className="col-6 border-right m-0 p-0 border-customLine">
             <Route exact path="/home">
@@ -111,11 +112,7 @@ const Homepage = () => {
               </div>
               <hr className="bg-customLine py-1" />
               {user ? (
-                <TweetList
-                  tweets={tweets}
-                  handleLove={handleLove}
-                  user={user}
-                />
+                <TweetList tweets={tweets} handleLove={handleLove} />
               ) : (
                 <div className="text-white text-center mt-5">
                   <h1>Don't miss what's happening</h1>
@@ -129,7 +126,7 @@ const Homepage = () => {
               )}
             </Route>
             <Route exact path="/:username/status/:tweet_id">
-              <TweetDetails firebase={firebase} />
+              <TweetDetails />
             </Route>
           </div>
           <div className="col-3">

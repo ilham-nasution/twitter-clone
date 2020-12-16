@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
+import firebase from "../../firebase/firebase";
+import { UserContext } from "../../contexts/UserContext";
 
-const Comment = ({ firebase, user }) => {
+const Comment = () => {
+  const user = useContext(UserContext);
   const [tweet, setTweet] = useState({ tweetBy: {} });
   const [value, setValue] = useState("");
   let history = useHistory();
@@ -21,7 +24,7 @@ const Comment = ({ firebase, user }) => {
           console.log("not found!!");
         }
       });
-  }, [id, firebase]);
+  }, [id]);
 
   const handleComment = (e) => {
     e.preventDefault();
